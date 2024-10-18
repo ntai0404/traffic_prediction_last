@@ -4,23 +4,25 @@ import pickle
 import os
 from sklearn.model_selection import train_test_split
 
-# Load các mô hình
+# Định nghĩa đường dẫn tuyệt đối tới thư mục hiện tại
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Sử dụng đường dẫn tuyệt đối để tải các mô hình
 models = {
-    'Perceptron': pickle.load(open('../src/perceptron_model.pkl', 'rb')),
-    'ID3': pickle.load(open('../src/id3_model.pkl', 'rb')),
-    'Neural Network': pickle.load(open('../src/neural_network_model.pkl', 'rb')),
-    'Ensemble Model': pickle.load(open('../src/ensemble_model.pkl', 'rb'))
+    'Perceptron': pickle.load(open(os.path.join(current_dir, '../src/perceptron_model.pkl'), 'rb')),
+    'ID3': pickle.load(open(os.path.join(current_dir, '../src/id3_model.pkl'), 'rb')),
+    'Neural Network': pickle.load(open(os.path.join(current_dir, '../src/neural_network_model.pkl'), 'rb')),
+    'Ensemble Model': pickle.load(open(os.path.join(current_dir, '../src/ensemble_model.pkl'), 'rb'))
 }
 
 # Hàm đọc báo cáo
 def read_report(model_name):
     try:
+        report_path = os.path.join(current_dir, f"../src/{model_name.lower().replace(' ', '_')}.txt")
         if model_name.lower() == "ensemble model":
-            with open('../src/ensemble.txt', 'r') as file:
-                report = file.read()
-        else:
-            with open(f'../src/{model_name.lower().replace(" ", "_")}.txt', 'r') as file:
-                report = file.read()
+            report_path = os.path.join(current_dir, '../src/ensemble.txt')
+        with open(report_path, 'r') as file:
+            report = file.read()
         return report
     except FileNotFoundError:
         return "Report not found."
@@ -134,8 +136,9 @@ rain_p_h = st.text_input("Lượng mưa (mm/giờ):")
 visibility_in_miles = st.text_input("Tầm nhìn (dặm):")
 time_of_day = st.text_input("Thời gian trong ngày (0-3):")
 
-# Tải dữ liệu
-df = pd.read_csv('../data/traffic_data.csv')
+# Đường dẫn tuyệt đối tới dữ liệu CSV
+csv_path = os.path.join(current_dir, '../data/traffic_data.csv')
+df = pd.read_csv(csv_path)
 
 # Dự đoán
 if st.button('Dự đoán'):
@@ -159,8 +162,8 @@ if st.button('Dự đoán'):
     report = read_report(selected_model)
 
     # Đường dẫn tới hình ảnh ma trận nhầm lẫn và biểu đồ học
-    confusion_matrix_image = f'static/png/{selected_model.lower().replace(" ", "_")}_confusion_matrix.png'
-    learning_curve_image = f'static/png/{selected_model.lower().replace(" ", "_")}_learning_curve.png'
+    confusion_matrix_image = os.path.join(current_dir, f'static/png/{selected_model.lower().replace(" ", "_")}_confusion_matrix.png')
+    learning_curve_image = os.path.join(current_dir, f'static/png/{selected_model.lower().replace(" ", "_")}_learning_curve.png')
     
     # Hiển thị kết quả dự đoán
     st.write("Kết quả dự đoán:")
