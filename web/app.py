@@ -107,25 +107,27 @@ if st.button('Dự đoán'):
             predictions = model.predict(input_data)
             condition = {0: "Thông thoáng", 1: "Đông đúc", 2: "Ùn tắc"}
             st.write(f"Kết quả dự đoán: {condition.get(predictions[0], 'Không xác định')}")
+
             # Đọc báo cáo
             report = read_report(selected_model)
             st.write("Báo cáo mô hình:")
             st.text(report)
 
             # Hiển thị hình ảnh
-            confusion_matrix_image = f'static/png/{selected_model.lower().replace(" ", "_")}_confusion_matrix.png'
-            learning_curve_image = f'static/png/{selected_model.lower().replace(" ", "_")}_learning_curve.png'
-            
+            confusion_matrix_image = os.path.join(current_dir, f'static/png/{selected_model.lower().replace(" ", "_")}_confusion_matrix.png')
+            learning_curve_image = os.path.join(current_dir, f'static/png/{selected_model.lower().replace(" ", "_")}_learning_curve.png')
+
+            # Kiểm tra và hiển thị hình ảnh
             if os.path.exists(confusion_matrix_image):
                 st.image(confusion_matrix_image, caption='Ma trận nhầm lẫn')
             else:
-                st.write("Không tìm thấy hình ảnh ma trận nhầm lẫn.")
+                st.write(f"Không tìm thấy hình ảnh ma trận nhầm lẫn tại: {confusion_matrix_image}")
 
             if os.path.exists(learning_curve_image):
                 st.image(learning_curve_image, caption='Đường học')
             else:
-                st.write("Không tìm thấy hình ảnh đường học.")
-    
+                st.write(f"Không tìm thấy hình ảnh đường học tại: {learning_curve_image}")
+
     except ValueError as e:
         st.error(f"Có lỗi xảy ra: {e}")
     except Exception as e:
@@ -134,4 +136,5 @@ if st.button('Dự đoán'):
 # Chạy ứng dụng
 if __name__ == '__main__':
     st.write("Chạy ứng dụng trên Streamlit.")
+
 
