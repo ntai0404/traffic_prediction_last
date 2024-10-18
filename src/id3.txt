@@ -1,0 +1,38 @@
+Training Report:
+              precision    recall  f1-score   support
+
+           0       0.88      1.00      0.94      2822
+           1       0.76      0.92      0.83      4863
+           2       1.00      0.71      0.83      4915
+
+    accuracy                           0.86     12600
+   macro avg       0.88      0.88      0.87     12600
+weighted avg       0.88      0.86      0.85     12600
+
+Accuracy: 0.86       Total samples: 12600
+
+Validation Report:
+              precision    recall  f1-score   support
+
+           0       0.88      1.00      0.93       590
+           1       0.76      0.92      0.83      1050
+           2       1.00      0.71      0.83      1060
+
+    accuracy                           0.86      2700
+   macro avg       0.88      0.88      0.87      2700
+weighted avg       0.88      0.86      0.85      2700
+
+Accuracy: 0.86       Total samples: 2700
+
+Testing Report:
+              precision    recall  f1-score   support
+
+           0       0.84      1.00      0.91       588
+           1       0.76      0.90      0.82      1087
+           2       1.00      0.70      0.82      1025
+
+    accuracy                           0.84      2700
+   macro avg       0.87      0.86      0.85      2700
+weighted avg       0.87      0.84      0.84      2700
+
+Accuracy: 0.84       Total samples: 2700
