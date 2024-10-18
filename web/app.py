@@ -29,8 +29,8 @@ def read_report(model_name):
     try:
         with open(report_path, 'r') as file:
             return file.read()
-    except FileNotFoundError:
-        st.error(f"Báo cáo cho mô hình '{model_name}' không tìm thấy.")
+    except FileNotFoundError as e:
+        st.error(f"Có lỗi xảy ra: {e}")
         return None  # Hoặc có thể trả về một chuỗi rỗng
 
 # Tiêu đề ứng dụng
