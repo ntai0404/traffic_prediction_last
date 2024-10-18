@@ -9,10 +9,10 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 
 # Sử dụng đường dẫn tuyệt đối để tải các mô hình
 models = {
-    'Perceptron': pickle.load(open(os.path.join(current_dir, '../src/perceptron_model.pkl'), 'rb')),
-    'ID3': pickle.load(open(os.path.join(current_dir, '../src/id3_model.pkl'), 'rb')),
-    'Neural Network': pickle.load(open(os.path.join(current_dir, '../src/neural_network_model.pkl'), 'rb')),
-    'Ensemble Model': pickle.load(open(os.path.join(current_dir, '../src/ensemble_model.pkl'), 'rb'))
+    'Perceptron': pickle.load(open(os.path.join(current_dir, './src/perceptron_model.pkl'), 'rb')),
+    'ID3': pickle.load(open(os.path.join(current_dir, './src/id3_model.pkl'), 'rb')),
+    'Neural Network': pickle.load(open(os.path.join(current_dir, './src/neural_network_model.pkl'), 'rb')),
+    'Ensemble Model': pickle.load(open(os.path.join(current_dir, './src/ensemble_model.pkl'), 'rb'))
 }
 
 # Hàm đọc báo cáo
