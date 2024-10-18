@@ -1,3 +1,4 @@
+
 import streamlit as st
 import pandas as pd
 import pickle
@@ -29,7 +30,8 @@ def read_report(model_name):
         with open(report_path, 'r') as file:
             return file.read()
     except FileNotFoundError:
-        return "Báo cáo không tìm thấy."
+        st.error(f"Báo cáo cho mô hình '{model_name}' không tìm thấy.")
+        return None  # Hoặc có thể trả về một chuỗi rỗng
 
 # Tiêu đề ứng dụng
 st.set_page_config(page_title="Dự đoán giao thông", page_icon="./static/logo2.jpg")
@@ -110,8 +112,9 @@ if st.button('Dự đoán'):
 
             # Đọc báo cáo
             report = read_report(selected_model)
-            st.write("Báo cáo mô hình:")
-            st.text(report)
+            if report:
+                st.write("Báo cáo mô hình:")
+                st.text(report)
 
             # Hiển thị hình ảnh
             confusion_matrix_image = os.path.join(current_dir, f'static/png/{selected_model.lower().replace(" ", "_")}_confusion_matrix.png')
@@ -136,5 +139,4 @@ if st.button('Dự đoán'):
 # Chạy ứng dụng
 if __name__ == '__main__':
     st.write("Chạy ứng dụng trên Streamlit.")
-
 
