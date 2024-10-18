@@ -25,13 +25,18 @@ models = {
 
 # Hàm đọc báo cáo
 def read_report(model_name):
-    report_path = os.path.join(current_dir, f'../src/{model_name.lower().replace(" ", "_")}.txt')
     try:
+        if model_name.lower() == "ensemble model":
+            report_path = './src/ensemble.txt'
+        else:
+            report_path = f'./src/{model_name.lower().replace(" ", "_")}.txt'
+        
         with open(report_path, 'r') as file:
             return file.read()
-    except FileNotFoundError as e:
-        st.error(f"Có lỗi xảy ra: {e}")
-        return None  # Hoặc có thể trả về một chuỗi rỗng
+    except FileNotFoundError:
+        st.error(f"Báo cáo cho mô hình '{model_name}' không tìm thấy.")
+        return None
+
 
 # Tiêu đề ứng dụng
 st.set_page_config(page_title="Dự đoán giao thông", page_icon="./static/logo2.jpg")
