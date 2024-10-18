@@ -1,10 +1,13 @@
+
 import streamlit as st
 import pandas as pd
 import pickle
 import os
 
+# Lấy đường dẫn đến thư mục hiện tại
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
+# Hàm tải mô hình
 def load_model(model_name):
     try:
         return pickle.load(open(os.path.join(current_dir, f'../src/{model_name}.pkl'), 'rb'))
@@ -12,6 +15,7 @@ def load_model(model_name):
         st.error(f"Mô hình '{model_name}' không tìm thấy.")
         return None
 
+# Load các mô hình
 models = {
     'Perceptron': load_model('perceptron_model'),
     'ID3': load_model('id3_model'),
@@ -19,6 +23,7 @@ models = {
     'Ensemble Model': load_model('ensemble_model')
 }
 
+# Hàm đọc báo cáo
 def read_report(model_name):
     try:
         if model_name.lower() == "ensemble model":
@@ -32,8 +37,11 @@ def read_report(model_name):
         st.error(f"Báo cáo cho mô hình '{model_name}' không tìm thấy.")
         return None
 
+
+# Tiêu đề ứng dụng
 st.set_page_config(page_title="Dự đoán giao thông", page_icon="./static/logo2.jpg")
 
+# Thêm CSS
 st.markdown(
     """
     <style>
@@ -70,11 +78,14 @@ st.markdown(
     """, unsafe_allow_html=True
 )
 
+# Tiêu đề ứng dụng
 st.title("Dự đoán giao thông")
 st.markdown('<div class="header"><h1>Dự đoán giao thông</h1></div>', unsafe_allow_html=True)
 
+# Chọn mô hình
 selected_model = st.selectbox("Chọn mô hình:", list(models.keys()))
 
+# Nhập dữ liệu
 is_holiday = st.text_input("Ngày lễ (1 nếu là ngày lễ, 0 nếu không):", "0")
 air_pollution_index = st.text_input("Chỉ số ô nhiễm không khí:", "0.0")
 temperature = st.text_input("Nhiệt độ (°C):", "0.0")
@@ -82,8 +93,10 @@ rain_p_h = st.text_input("Lượng mưa (mm/giờ):", "0.0")
 visibility_in_miles = st.text_input("Tầm nhìn (dặm):", "0.0")
 time_of_day = st.text_input("Thời gian trong ngày (0-3):", "0")
 
+# Dự đoán
 if st.button('Dự đoán'):
     try:
+        # Chuyển đổi dữ liệu đầu vào thành DataFrame
         input_data = pd.DataFrame({
             'is_holiday': [int(is_holiday)],
             'air_pollution_index': [float(air_pollution_index)],
@@ -93,21 +106,26 @@ if st.button('Dự đoán'):
             'time_of_day': [int(time_of_day)]
         })
 
+        # Chọn mô hình
         model = models[selected_model]
         
+        # Dự đoán
         if model:
             predictions = model.predict(input_data)
             condition = {0: "Thông thoáng", 1: "Đông đúc", 2: "Ùn tắc"}
             st.write(f"Kết quả dự đoán: {condition.get(predictions[0], 'Không xác định')}")
 
+            # Đọc báo cáo
             report = read_report(selected_model)
             if report:
                 st.write("Báo cáo mô hình:")
                 st.text(report)
 
+            # Hiển thị hình ảnh
             confusion_matrix_image = os.path.join(current_dir, f'static/png/{selected_model.lower().replace(" ", "_")}_confusion_matrix.png')
             learning_curve_image = os.path.join(current_dir, f'static/png/{selected_model.lower().replace(" ", "_")}_learning_curve.png')
 
+            # Kiểm tra và hiển thị hình ảnh
             if os.path.exists(confusion_matrix_image):
                 st.image(confusion_matrix_image, caption='Ma trận nhầm lẫn')
             else:
@@ -123,6 +141,7 @@ if st.button('Dự đoán'):
     except Exception as e:
         st.error(f"Có lỗi xảy ra: {e}")
 
+# Chạy ứng dụng
 if __name__ != '__main__':
     st.write("Ứng dụng gặp lỗi hãy vào lại sau! ")
 
