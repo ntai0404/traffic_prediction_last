@@ -1,0 +1,61 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="./static/logo2.jpg">
+    <title>Traffic Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+   
+
+</head>
+<body>
+    <div class="web">
+        <div class="header">
+            <h1>Traffic Prediction</h1>
+        </div>
+        <div class="container">
+            <label for="model">Select Model:</label>
+            <select id="model" name="model" required="">
+                <option value="">Select a model</option>
+                {% for model in models %}
+                    <option value="{{ model }}">{{ model }}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <label for="is_holiday">Is Holiday:</label>
+            <input type="text" id="is_holiday" name="is_holiday" required=""><br>
+    
+            <label for="air_pollution_index">Air Pollution Index:</label>
+            <input type="text" id="air_pollution_index" name="air_pollution_index" required=""><br>
+    
+            <label for="humidity">Humidity:</label>
+            <input type="text" id="humidity" name="humidity" required=""><br>
+    
+            <label for="wind_speed">Wind Speed:</label>
+            <input type="text" id="wind_speed" name="wind_speed" required=""><br>
+    
+            <label for="wind_direction">Wind Direction:</label>
+            <input type="text" id="wind_direction" name="wind_direction" required=""><br>
+    
+            <label for="visibility_in_miles">Visibility in Miles:</label>
+            <input type="text" id="visibility_in_miles" name="visibility_in_miles" required=""><br>
+    
+            <label for="dew_point">Dew Point:</label>
+            <input type="text" id="dew_point" name="dew_point" required=""><br>
+    
+            <label for="temperature">Temperature:</label>
+            <input type="text" id="temperature" name="temperature" required=""><br>
+    
+            <label for="rain_p_h">Rain per Hour:</label>
+            <input type="text" id="rain_p_h" name="rain_p_h" required=""><br>
+    
+            <input type="submit" value="Predict">
+            <br>
+        {% if prediction is not none %}
+            <h2>Prediction Result:</h2>
+            <p>Traffic Condition: {{ prediction }}</p>
+            <p>Confidence: {{ probability }}</p>
+        {% endif %}
+        </div>
+    </div>
+</body>
+</html>
