@@ -3,7 +3,6 @@ import pandas as pd
 import pickle
 import os
 
-
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
 def load_model(model_name):
@@ -76,29 +75,37 @@ st.markdown('<div class="header"><h1>Dự đoán giao thông</h1></div>', unsafe
 
 selected_model = st.selectbox("Chọn mô hình:", list(models.keys()))
 
-is_holiday = st.text_input("Ngày lễ (1 nếu là ngày lễ, 0 nếu không):", "0")
-air_pollution_index = st.text_input("Chỉ số ô nhiễm không khí:", "0.0")
-temperature = st.text_input("Nhiệt độ (°C):", "0.0")
-rain_p_h = st.text_input("Lượng mưa (mm/giờ):", "0.0")
-visibility_in_miles = st.text_input("Tầm nhìn (dặm):", "0.0")
-time_of_day = st.text_input("Thời gian trong ngày (0-3):", "0")
+# Nhập liệu mới cho dự đoán
+date = st.text_input("Ngày (dd):", "10")
+day_of_week = st.text_input("Ngày trong tuần (0-6):", "2")
+car_count = st.text_input("Số xe hơi:", "0")
+bike_count = st.text_input("Số xe đạp:", "0")
+bus_count = st.text_input("Số xe buýt:", "0")
+truck_count = st.text_input("Số xe tải:", "0")
+total_count = st.text_input("Tổng số xe:", "0")
 
 if st.button('Dự đoán'):
     try:
         input_data = pd.DataFrame({
-            'is_holiday': [int(is_holiday)],
-            'air_pollution_index': [float(air_pollution_index)],
-            'temperature': [float(temperature)],
-            'rain_p_h': [float(rain_p_h)],
-            'visibility_in_miles': [float(visibility_in_miles)],
-            'time_of_day': [int(time_of_day)]
+            'Date': [int(date)],
+            'Day of the week': [int(day_of_week)],
+            'CarCount': [int(car_count)],
+            'BikeCount': [int(bike_count)],
+            'BusCount': [int(bus_count)],
+            'TruckCount': [int(truck_count)],
+            'Total': [int(total_count)]
         })
 
         model = models[selected_model]
                 
         if model:
             predictions = model.predict(input_data)
-            condition = {0: "Thông thoáng", 1: "Đông đúc", 2: "Ùn tắc"}
+            condition = {
+                0: "Thông thoáng", 
+                1: "Đông đúc", 
+                2: "Ùn tắc", 
+                3: "Tắc đường"
+            }
             st.write(f"Kết quả dự đoán: {condition.get(predictions[0], 'Không xác định')}")
 
             report = read_report(selected_model)
@@ -125,5 +132,6 @@ if st.button('Dự đoán'):
         st.error(f"Có lỗi xảy ra: {e}")
 
 if __name__ != '__main__':
-    st.write("Ứng dụng gặp lỗi hãy vào lại sau! ")
+    st.write("Ứng dụng gặp lỗi hãy vào lại sau!")
+
 

@@ -1,18 +1,14 @@
 import pandas as pd
 
-# Đọc hai file CSV
 df1 = pd.read_csv('./data/Traffic.csv')
 df2 = pd.read_csv('./data/TrafficTwoMonth.csv')
 
-# Hợp nhất hai dataset bằng cách nối thêm các hàng từ df2 vào df1
 df_merged = pd.concat([df1, df2], ignore_index=True)
 
-# Lưu dataset đã hợp nhất vào file mới (nếu cần)
 df_merged.to_csv('./data/dataset.csv', index=False)
 
 import pandas as pd
-# Đọc file CSV
-#df = pd.read_csv('./data/TrafficTwoMonth.csv')
+
 df = pd.read_csv('./data/dataset.csv')
 # Đếm số lần xuất hiện của từng chuỗi trong cột 'traffic_condition'
 count_series = df['Traffic Situation'].value_counts()
