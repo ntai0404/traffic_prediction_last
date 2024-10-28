@@ -113,8 +113,8 @@ if st.button('Dự đoán'):
                 st.write("Báo cáo mô hình:")
                 st.text(report)
 
-            confusion_matrix_image = os.path.join(current_dir, f'static/png/{selected_model.lower().replace(" ", "_")}_confusion_matrix.png')
-            learning_curve_image = os.path.join(current_dir, f'static/png/{selected_model.lower().replace(" ", "_")}_learning_curve.png')
+            confusion_matrix_image = os.path.join(current_dir, f'static/png/{selected_model.lower().replace(" ", "_")}_model_confusion_matrix.png')
+            learning_curve_image = os.path.join(current_dir, f'static/png/{selected_model.lower().replace(" ", "_")}_model_learning_curve.png')
         
             if os.path.exists(confusion_matrix_image):
                 st.image(confusion_matrix_image, caption='Ma trận nhầm lẫn')
