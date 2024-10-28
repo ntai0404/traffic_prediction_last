@@ -101,10 +101,10 @@ if st.button('Dự đoán'):
         if model:
             predictions = model.predict(input_data)
             condition = {
-                0: "Thông thoáng", 
-                1: "Đông đúc", 
-                2: "Ùn tắc", 
-                3: "Tắc đường"
+                0: "Vắng vẻ", 
+                1: "Thông thoáng", 
+                2: "Đông đúc", 
+                3: "Ùn tắc"
             }
             st.write(f"Kết quả dự đoán: {condition.get(predictions[0], 'Không xác định')}")
             st.write(f"Dự đoán thô: {predictions[0]}")
