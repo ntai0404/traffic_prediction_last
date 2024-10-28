@@ -76,8 +76,8 @@ st.markdown('<div class="header"><h1>Dự đoán giao thông</h1></div>', unsafe
 selected_model = st.selectbox("Chọn mô hình:", list(models.keys()))
 
 # Nhập liệu mới cho dự đoán
-date = st.text_input("Ngày (dd):", "10")
-day_of_week = st.text_input("Ngày trong tuần (0-6):", "2")
+date = st.text_input("Ngày (dd):", "0")
+day_of_week = st.text_input("Ngày trong tuần (1-7):", "0")
 car_count = st.text_input("Số xe hơi:", "0")
 bike_count = st.text_input("Số xe đạp:", "0")
 bus_count = st.text_input("Số xe buýt:", "0")
@@ -107,14 +107,20 @@ if st.button('Dự đoán'):
                 3: "Tắc đường"
             }
             st.write(f"Kết quả dự đoán: {condition.get(predictions[0], 'Không xác định')}")
+            st.write(f"Dự đoán thô: {predictions[0]}")
 
             report = read_report(selected_model)
             if report:
                 st.write("Báo cáo mô hình:")
                 st.text(report)
+            if selected_model == "Ensemble Model":
+                confusion_matrix_image = os.path.join(current_dir, f'static/png/{selected_model.lower().replace(" ", "_")}_confusion_matrix.png')
+                learning_curve_image = os.path.join(current_dir, f'static/png/{selected_model.lower().replace(" ", "_")}_learning_curve.png')
+            else:
+                confusion_matrix_image = os.path.join(current_dir, f'static/png/{selected_model.lower().replace(" ", "_")}_model_confusion_matrix.png')
+                learning_curve_image = os.path.join(current_dir, f'static/png/{selected_model.lower().replace(" ", "_")}_model_learning_curve.png')
 
-            confusion_matrix_image = os.path.join(current_dir, f'static/png/{selected_model.lower().replace(" ", "_")}_model_confusion_matrix.png')
-            learning_curve_image = os.path.join(current_dir, f'static/png/{selected_model.lower().replace(" ", "_")}_model_learning_curve.png')
+ 
         
             if os.path.exists(confusion_matrix_image):
                 st.image(confusion_matrix_image, caption='Ma trận nhầm lẫn')

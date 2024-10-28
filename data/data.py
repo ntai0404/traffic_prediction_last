@@ -1,7 +1,7 @@
 import pandas as pd
 
 df1 = pd.read_csv('./data/Traffic.csv')
-df2 = pd.read_csv('./data/TrafficTwoMonth.csv')
+df2 = pd.read_csv('./data/TrafficTwoMonth02.csv')
 
 df_merged = pd.concat([df1, df2], ignore_index=True)
 
@@ -38,10 +38,10 @@ df = df.drop(columns=['Time'])
 
 # Chuyển đổi cột 'Traffic Situation' sang dạng số
 traffic_situation_mapping = {
-    'low': 1,
-    'normal': 2,
-    'high': 3,
-    'heavy': 4
+    'low': 0,
+    'normal': 1,
+    'high': 2,
+    'heavy': 3
 }
 df['Traffic Situation'] = df['Traffic Situation'].map(traffic_situation_mapping)
 
