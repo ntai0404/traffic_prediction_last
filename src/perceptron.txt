@@ -1,36 +1,39 @@
 Training Report:
               precision    recall  f1-score   support
 
-           0       0.75      0.97      0.84      2822
-           1       0.81      0.42      0.56      4863
-           2       0.71      0.92      0.80      4915
+           1       0.65      0.63      0.64       797
+           2       0.67      0.69      0.68      1169
+           3       0.64      0.59      0.61       487
+           4       0.93      0.95      0.94      1269
 
-    accuracy                           0.74     12600
-   macro avg       0.75      0.77      0.73     12600
-weighted avg       0.76      0.74      0.72     12600
+    accuracy                           0.75      3722
+   macro avg       0.72      0.71      0.72      3722
+weighted avg       0.75      0.75      0.75      3722
 
-Accuracy: 0.74       Total samples: 12600
+Accuracy: 0.75       Total samples: 3722
 Validation Report:
               precision    recall  f1-score   support
 
-           0       0.74      0.97      0.84       590
-           1       0.80      0.42      0.56      1050
-           2       0.70      0.91      0.79      1060
+           1       0.68      0.62      0.65       190
+           2       0.64      0.71      0.67       238
+           3       0.66      0.54      0.60       103
+           4       0.91      0.95      0.93       267
 
-    accuracy                           0.74      2700
-   macro avg       0.75      0.77      0.73      2700
-weighted avg       0.75      0.74      0.71      2700
+    accuracy                           0.75       798
+   macro avg       0.72      0.70      0.71       798
+weighted avg       0.74      0.75      0.74       798
 
-Accuracy: 0.74       Total samples: 2700
+Accuracy: 0.75       Total samples: 798
 Testing Report:
               precision    recall  f1-score   support
 
-           0       0.71      0.98      0.82       588
-           1       0.82      0.42      0.56      1087
-           2       0.70      0.92      0.80      1025
+           1       0.58      0.68      0.62       151
+           2       0.70      0.62      0.66       262
+           3       0.63      0.60      0.61       102
+           4       0.94      0.97      0.95       283
 
-    accuracy                           0.73      2700
-   macro avg       0.75      0.77      0.73      2700
-weighted avg       0.75      0.73      0.71      2700
+    accuracy                           0.75       798
+   macro avg       0.71      0.72      0.71       798
+weighted avg       0.75      0.75      0.75       798
 
-Accuracy: 0.73       Total samples: 2700
+Accuracy: 0.75       Total samples: 798

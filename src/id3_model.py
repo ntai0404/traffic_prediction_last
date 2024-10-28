@@ -9,11 +9,10 @@ import seaborn as sns
 import os
 import numpy as np
 
-df = pd.read_csv('./data/traffic_data.csv')
-df['time_of_day'] = df['time_of_day'].astype(int)
+df = pd.read_csv('./data/dataset.csv')
 
-X = df[['is_holiday', 'air_pollution_index', 'temperature', 'rain_p_h', 'visibility_in_miles', 'time_of_day']]
-y = df['traffic_condition']
+X = df.drop('Traffic Situation', axis=1)
+y = df['Traffic Situation']
 
 X_train, X_temp, y_train, y_temp = train_test_split(X, y, test_size=0.3, random_state=42)
 X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=0.5, random_state=42)
@@ -66,7 +65,7 @@ plt.xlabel('Dự đoán')
 plt.ylabel('Thực tế')
 plt.title('Ma trận nhầm lẫn')
 
-confusion_matrix_image_path = os.path.join(output_dir, 'id3_confusion_matrix.png')
+confusion_matrix_image_path = os.path.join(output_dir, 'id3_model_confusion_matrix.png')
 plt.savefig(confusion_matrix_image_path)
 plt.close()
 
@@ -92,7 +91,7 @@ plt.xlabel('Training Size')
 plt.ylabel('Score')
 plt.legend(loc='best')
 
-learning_curve_image_path = os.path.join(output_dir, 'id3_learning_curve.png')
+learning_curve_image_path = os.path.join(output_dir, 'id3_model_learning_curve.png')
 plt.savefig(learning_curve_image_path)
 plt.close()
 

@@ -9,10 +9,10 @@ import seaborn as sns
 import os
 import numpy as np
 
-df = pd.read_csv('./data/traffic_data.csv')
+df = pd.read_csv('./data/dataset.csv')
 
-X = df.drop('traffic_condition', axis=1)
-y = df['traffic_condition']
+X = df.drop('Traffic Situation', axis=1)
+y = df['Traffic Situation']
 
 print(f"Unique traffic conditions: {y.unique()}")
 
@@ -32,7 +32,6 @@ y_val_pred = model.predict(X_val)
 y_test_pred = model.predict(X_test)
 
 all_labels = sorted(y.unique())
-
 train_report = classification_report(y_train, y_train_pred, labels=all_labels, output_dict=False)
 val_report = classification_report(y_val, y_val_pred, labels=all_labels, output_dict=False)
 test_report = classification_report(y_test, y_test_pred, labels=all_labels, output_dict=False)
@@ -54,14 +53,12 @@ with open('./src/perceptron.txt', 'w') as report_file:
     report_file.write(test_report)
     report_file.write(f"\nAccuracy: {test_accuracy:.2f}       Total samples: {len(y_test)}\n")
 
-
 print(f'Perceptron Training Accuracy: {train_accuracy:.2f}')
 print(f'Perceptron Validation Accuracy: {val_accuracy:.2f}')
 print(f'Perceptron Testing Accuracy: {test_accuracy:.2f}')
 
 output_dir = './web/static/png'
 os.makedirs(output_dir, exist_ok=True)
-
 conf_matrix = confusion_matrix(y_test, y_test_pred)
 
 plt.figure(figsize=(8, 6))
@@ -71,7 +68,7 @@ plt.xlabel('Dự đoán')
 plt.ylabel('Thực tế')
 plt.title('Ma trận nhầm lẫn')
 
-confusion_matrix_image_path = os.path.join(output_dir, 'perceptron_confusion_matrix.png')
+confusion_matrix_image_path = os.path.join(output_dir, 'perceptron_model_confusion_matrix.png')
 plt.savefig(confusion_matrix_image_path)
 plt.close()
 
@@ -95,7 +92,7 @@ plt.xlabel('Training Set Size')
 plt.ylabel('Accuracy')
 plt.legend(loc='best')
 
-learning_curve_image_path = os.path.join(output_dir, 'perceptron_learning_curve.png')
+learning_curve_image_path = os.path.join(output_dir, 'perceptron_model_learning_curve.png')
 plt.savefig(learning_curve_image_path)
 plt.close()
 
@@ -105,6 +102,8 @@ with open('./src/perceptron_model.pkl', 'wb') as file:
     pickle.dump(model, file)
 
 print("Perceptron model saved successfully!")
+
+
 
 
 
