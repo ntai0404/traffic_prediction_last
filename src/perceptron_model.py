@@ -25,6 +25,7 @@ X_val = scaler.transform(X_val)
 X_test = scaler.transform(X_test)
 
 model = Perceptron(max_iter=1000, eta0=0.1, tol=1e-3, random_state=42)
+#model = Perceptron(max_iter=2000, eta0=0.01, tol=1e-4, alpha=0.0001, random_state=42)
 model.fit(X_train, y_train)
 
 y_train_pred = model.predict(X_train)
