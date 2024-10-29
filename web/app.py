@@ -13,10 +13,10 @@ def load_model(model_name):
         return None
 
 models = {
+    'Ensemble Model': load_model('ensemble_model'),
     'Perceptron': load_model('perceptron_model'),
     'ID3': load_model('id3_model'),
-    'Neural Network': load_model('neural_network_model'),
-    'Ensemble Model': load_model('ensemble_model')
+    'Neural Network': load_model('neural_network_model')
 }
 
 def read_report(model_name):
