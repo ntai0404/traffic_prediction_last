@@ -1,7 +1,7 @@
 import pandas as pd
 
 df1 = pd.read_csv('./data/Traffic.csv')
-df2 = pd.read_csv('./data/TrafficTwoMonth02.csv')
+df2 = pd.read_csv('./data/TrafficTwoMonth.csv')
 
 df_merged = pd.concat([df1, df2], ignore_index=True)
 

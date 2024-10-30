@@ -49,7 +49,7 @@ train_accuracy = accuracy_score(y_train, y_train_pred)
 val_accuracy = accuracy_score(y_val, y_val_pred)
 test_accuracy = accuracy_score(y_test, y_test_pred)
 
-with open('./src/ensemble_report.txt', 'w') as report_file:
+with open('./src/ensemble.txt', 'w') as report_file:
     report_file.write("Training Report:\n")
     report_file.write(train_report)
     report_file.write(f"\nAccuracy: {train_accuracy:.2f}       Total samples: {len(y_train)}\n")
